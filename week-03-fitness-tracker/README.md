@@ -16,7 +16,7 @@ analysis, and a goal check.
 ## How to run
 
 ```
-python fitness_tracker.py
+python waldron_personal_fitness_tracker.py
 ```
 
 ## What it demonstrates
@@ -34,5 +34,4 @@ python fitness_tracker.py
 - A function with a default parameter value (`format_workout_row(..., width=20)`)
 - Nested loops (input validation loops nested inside the main collection loop)
 
-A recorded sample run and additional verified test scenarios are documented
-in the comment block at the top of [fitness_tracker.py](fitness_tracker.py).
+
