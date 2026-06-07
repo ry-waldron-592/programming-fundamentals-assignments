@@ -1,5 +1,5 @@
 """
-Author: Jason
+Author: Ryan Waldron
 Date: 2026-06-07
 Description: Personal Fitness Tracker. Collects workout sessions from the
 user, calculates each workout's calorie burn rate and intensity label,
