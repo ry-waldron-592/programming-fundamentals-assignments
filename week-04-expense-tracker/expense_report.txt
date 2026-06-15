@@ -1,0 +1,17 @@
+====================================
+       EXPENSE SUMMARY REPORT       
+Generated: 2026-06-14
+====================================
+Total records   : 5
+Total spending  : $169.49
+
+--- Spending by Category ---
+Food            : $92.00
+Health          : $49.99
+Entertainment   : $15.00
+Transport       : $12.50
+
+--- This Month (2026-06) ---
+Records this month: 4
+Spending this month: $154.49
+====================================
