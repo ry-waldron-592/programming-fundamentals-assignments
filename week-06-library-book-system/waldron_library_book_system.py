@@ -43,7 +43,7 @@ import csv
 
 
 # ---------------------------------------------------------------------------
-# BASE LEVEL - the Book class
+# The Book class - a single physical book
 # ---------------------------------------------------------------------------
 class Book:
     """A single physical library book that can be borrowed and returned."""
@@ -85,7 +85,7 @@ class Book:
 
 
 # ---------------------------------------------------------------------------
-# INTERMEDIATE LEVEL - three subclasses that inherit from Book
+# Specialized book types that inherit from Book
 # ---------------------------------------------------------------------------
 class EBook(Book):
     """A digital book that any number of patrons can access at once."""
@@ -172,7 +172,7 @@ class ReferenceBook(Book):
 
 
 # ---------------------------------------------------------------------------
-# ADVANCED LEVEL - the Library manager class
+# The Library class - manages the whole collection
 # ---------------------------------------------------------------------------
 class Library:
     """Manages a collection of Book (and subclass) objects for a branch."""
@@ -353,7 +353,7 @@ def build_starter_collection():
 
 
 # ---------------------------------------------------------------------------
-# BASE LEVEL demonstration
+# Demo: basic Book operations on a plain list
 # ---------------------------------------------------------------------------
 def run_base_demo():
     """Exercise the required Base-level Book operations on a plain list."""
@@ -395,7 +395,7 @@ def run_base_demo():
 
 
 # ---------------------------------------------------------------------------
-# INTERMEDIATE LEVEL demonstration (polymorphism)
+# Demo: polymorphism across a mixed list of book types
 # ---------------------------------------------------------------------------
 def run_polymorphism_demo():
     """Call the same methods on a mixed list to show type-specific behavior."""
@@ -419,7 +419,7 @@ def run_polymorphism_demo():
 
 
 # ---------------------------------------------------------------------------
-# ADVANCED LEVEL - interactive menu
+# The interactive command-line menu
 # ---------------------------------------------------------------------------
 MENU = """
 [1] Display all books        [2] Add a book
@@ -537,13 +537,13 @@ def run_interactive(library):
 # ---------------------------------------------------------------------------
 def main():
     """Run the base demo, the polymorphism demo, then the interactive menu."""
-    print("############ BASE LEVEL DEMO ############\n")
+    print("############ BOOK OPERATIONS DEMO ############\n")
     run_base_demo()
 
-    print("\n\n######## INTERMEDIATE POLYMORPHISM DEMO ########")
+    print("\n\n######## POLYMORPHISM DEMO ########")
     run_polymorphism_demo()
 
-    print("\n######## ADVANCED: INTERACTIVE LIBRARY ########")
+    print("\n######## INTERACTIVE LIBRARY ########")
     library = Library("Riverside Public")
     # Load an existing catalog if present; otherwise seed with starter data.
     if library.load_from_csv("library.csv") == 0 and not library.collection:
