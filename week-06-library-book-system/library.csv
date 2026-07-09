@@ -1,0 +1,10 @@
+type,title,author,isbn,year,genre,available,borrower,extra1,extra2
+Book,The Great Gatsby,F. Scott Fitzgerald,978-0743273565,1925,Classic Fiction,True,,,
+Book,Educated,Tara Westover,978-0399590504,2018,Memoir,False,Priya,,
+Book,Dune,Frank Herbert,978-0441013593,1965,Science Fiction,False,Jordan,,
+Book,The Hobbit,J.R.R. Tolkien,978-0547928227,1937,Fantasy,True,,,
+EBook,Clean Code,Robert C. Martin,978-0132350884,2008,Programming,True,,EPUB,1.2
+EBook,The Pragmatic Programmer,Andrew Hunt,978-0135957059,2019,Programming,True,,PDF,3.4
+AudioBook,Becoming,Michelle Obama,978-1524763138,2018,Memoir,True,,Michelle Obama,19.0
+AudioBook,The Lord of the Rings,J.R.R. Tolkien,978-0544003415,1954,Fantasy,True,,Rob Inglis,11.0
+ReferenceBook,Chicago Manual of Style,University of Chicago,978-0226287058,2017,Reference,False,,17,
