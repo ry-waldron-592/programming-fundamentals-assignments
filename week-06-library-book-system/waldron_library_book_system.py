@@ -165,6 +165,11 @@ class ReferenceBook(Book):
         # Inherit the Book line, then add the reference marker line.
         return super().__str__() + f"\n    [Reference - Edition {self.edition} - In-Library Use Only]"
 
+    def get_reference_info(self):
+        # New method: describe how this reference work may be used.
+        return (f"'{self.title}' (Edition {self.edition}) is a reference work "
+                f"for in-library use only.")
+
 
 # ---------------------------------------------------------------------------
 # ADVANCED LEVEL - the Library manager class
