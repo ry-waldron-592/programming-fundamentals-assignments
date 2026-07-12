@@ -1,0 +1,150 @@
+=============================================================================
+BUG REPORT - Student Record Management System
+Week 8 Final Programming Assignment (Debug, Fix, and Refactor)
+Source file audited: student_records.py (original, buggy)
+Fixed file:          student_records_fixed.py
+=============================================================================
+
+Ten bugs were introduced into student_records.py: 2 crash bugs, 6 logic bugs,
+and 2 subtle logic bugs. Each is documented below. Line numbers refer to the
+ORIGINAL buggy file. Bugs are grouped crash -> logic -> subtle, matching the
+order recommended in the assignment (fix crashes first, subtle last).
+
+-----------------------------------------------------------------------------
+Bug #: 1
+Type: Crash
+Line(s): 69
+Original: csv_file.close()
+Fixed: (moved) csv_file.close() now runs AFTER the "for row in csv_reader" loop
+Symptom: On Option 1 the program crashed immediately with
+         "ValueError: I/O operation on closed file." and no records loaded.
+Explanation: csv.DictReader reads the file lazily, one row at a time during
+             iteration. The original closed the file before the for-loop ran,
+             so there was nothing left to read. Closing after the loop lets the
+             reader consume every row first.
+
+-----------------------------------------------------------------------------
+Bug #: 2
+Type: Crash
+Line(s): 149
+Original: print(f"  Student ID    : {found_student['Student_ID']}")
+Fixed: print(f"  Student ID    : {found_student['StudentID']}")
+Symptom: Whenever a search actually matched a student, the program crashed with
+         "KeyError: 'Student_ID'" instead of displaying the record.
+Explanation: The dictionary keys are built as "StudentID" (no underscore). The
+             display line asked for "Student_ID", a key that does not exist.
+             Using the correct key returns the stored value.
+
+-----------------------------------------------------------------------------
+Bug #: 3
+Type: Logic
+Line(s): 67-86 (Option 1 load block)
+Original: (no reset - the loop appended to whatever student_records held)
+Fixed: student_records = []   # added before the load loop
+Symptom: Loading students.csv a second time produced 20 records instead of 10
+         (records accumulated across loads). Failed test T2.
+Explanation: Because student_records was never cleared, each load appended a
+             fresh copy onto the old data. Resetting the list before loading
+             guarantees the roster reflects only the file just read.
+
+-----------------------------------------------------------------------------
+Bug #: 4
+Type: Logic
+Line(s): 89 (end of Option 1)
+Original: (no assignment - csv_loaded stayed False after a successful load)
+Fixed: csv_loaded = True   # added after the success message
+Symptom: After loading, Options 2 and 3 always reported "No data loaded",
+         so listing and searching never worked.
+Explanation: The guards in Options 2 and 3 check "if not csv_loaded". The flag
+             was initialised to False and never updated, so the guard always
+             blocked. Setting it True after a successful load unlocks them.
+
+-----------------------------------------------------------------------------
+Bug #: 5
+Type: Logic
+Line(s): 135
+Original: while search_index <= len(student_records):
+Fixed: while search_index < len(student_records):
+Symptom: Searching for an ID that is not present crashed with
+         "IndexError: list index out of range." Failed test T6.
+Explanation: Valid indexes run 0 .. len-1. With "<=", the loop ran one step too
+             far and accessed student_records[len], which does not exist.
+             Using "<" keeps every access inside the list.
+
+-----------------------------------------------------------------------------
+Bug #: 6
+Type: Logic
+Line(s): 133 (start of the Option 3 search)
+Original: (no reset - found_student kept its value from the previous search)
+Fixed: found_student = None   # added before each search begins
+Symptom: After a successful search, searching a NON-existent ID still displayed
+         the previous student instead of "No student found". Failed test T7.
+Explanation: found_student is a module-level variable set once to None. Without
+             resetting it at the start of each search, a search that finds
+             nothing leaves the old match in place. Clearing it first makes the
+             "if found_student is None" check accurate every time.
+
+-----------------------------------------------------------------------------
+Bug #: 7
+Type: Logic
+Line(s): 108-116 (Option 2 listing loop)
+Original: for current_student in student_records:
+             print( ... f"{row_number:<5}" ... )
+         (row_number was set to 1 once and never changed)
+Fixed: added  row_number = row_number + 1  as the last statement in the loop
+Symptom: Every row in the listing was numbered "1" instead of 1..10.
+         Failed test T3.
+Explanation: The counter was initialised to 1 but never advanced, so each
+             iteration printed the same number. Incrementing it once per row
+             produces the required sequential numbering.
+
+-----------------------------------------------------------------------------
+Bug #: 8
+Type: Logic
+Line(s): 159
+Original: elif menu_choice == 4:
+Fixed: elif menu_choice == "4":
+Symptom: Choosing option 4 never exited; the program fell through to the
+         "not a valid option" message and looped forever. Failed test T9.
+Explanation: input() returns a string, so menu_choice is "4", never the integer
+             4. The comparison could never be true. Comparing against the
+             string "4" matches the user's input.
+
+-----------------------------------------------------------------------------
+Bug #: 9
+Type: Subtle
+Line(s): 136
+Original: if student_records[search_index]["StudentID"].upper() == search_id:
+Fixed: if student_records[search_index]["StudentID"].upper() == search_id.upper():
+Symptom: Searching with a lowercase ID (e.g. "s1005") reported "No student
+         found", even though the record exists. Failed test T5.
+Explanation: Only the stored ID was upper-cased; the user's input was not. So
+             "S1005" was compared against "s1005" and never matched. Upper-
+             casing both sides makes the search truly case-insensitive.
+
+-----------------------------------------------------------------------------
+Bug #: 10
+Type: Subtle
+Line(s): 138
+Original: search_index = len(student_records)  - 1      # Force loop to end
+Fixed: search_index = len(student_records)             # Force loop to end
+Symptom: Searching for the LAST record (S1010) hung in an infinite loop; other
+         matches skipped to the last record and then crashed with IndexError.
+         Failed test T8.
+Explanation: To stop the while-loop, search_index must reach len(list) so the
+             "search_index < len" condition becomes false. Setting it to len-1
+             left the condition true, re-examining the last element forever (or,
+             for an earlier match, walking off the end). Using len ends cleanly.
+
+=============================================================================
+SUMMARY
+=============================================================================
+Crash bugs .......... 2   (Bugs 1, 2)
+Logic bugs .......... 6   (Bugs 3, 4, 5, 6, 7, 8)
+Subtle logic bugs ... 2   (Bugs 9, 10)
+Total ............... 10
+
+All nine minimum test cases (T1-T9) pass against student_records_fixed.py, and
+the refactored program (waldron_student_records_refactored.py) reproduces the same
+behaviour using an object-oriented design with a binary search.
+=============================================================================

@@ -13,6 +13,7 @@ problem and how to run the solution.
 | 5 | Lists and Dictionaries — Movie Collection Manager | [week-05-movie-collection-manager/](week-05-movie-collection-manager/) |
 | 6 | Object-Oriented Programming — Library Book Management System | [week-06-library-book-system/](week-06-library-book-system/) |
 | 7 | Database Programming (SQLite) — Personal Task & Project Manager | [week-07-task-manager/](week-07-task-manager/) |
+| 8 | Debugging & Refactoring — Student Record Management System | [week-08-student-records/](week-08-student-records/) |
 
 New weeks are added as their own top-level folder following the
 `week-NN-short-description` naming pattern.

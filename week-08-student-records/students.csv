@@ -1,0 +1,11 @@
+StudentID,StudentName,Major,GPA,TotalCredits
+S1001,Alice Johnson,Computer Science,3.85,72
+S1002,Brian Martinez,Information Technology,3.12,60
+S1003,Catherine Lee,Cybersecurity,2.95,45
+S1004,David Nguyen,Computer Science,3.67,88
+S1005,Emily Chen,Data Science,3.91,64
+S1006,Frank Rivera,Information Technology,2.78,33
+S1007,Grace Kim,Software Engineering,3.44,76
+S1008,Henry Patel,Computer Science,2.61,51
+S1009,Isabella Scott,Data Science,3.55,40
+S1010,James Turner,Cybersecurity,3.20,92
