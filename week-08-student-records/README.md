@@ -119,6 +119,16 @@ OOP design without changing what the user sees:
   "No student found with ID '…'" message echoes back the user's original input,
   so the feedback reflects exactly what they typed.
 
+### Verification
+
+Both programs were run on **Python 3.12** against test cases T1–T9. All nine
+pass, and the refactored program's output is **byte-for-byte identical** to the
+fixed program's (verified with `diff`). Additional checks confirmed: re-loading
+keeps the count at 10 (not 20), an unknown filename prints a helpful message and
+returns to the menu instead of crashing, the "no data loaded" guards fire before
+a load, invalid menu input is rejected, and the bonus `GraduateStudent` subclass
+adds `thesis_topic` and overrides `__str__` cleanly.
+
 ## Files
 
 - `student_records_fixed.py` — Part 1 deliverable (debugged original)
